@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -55,6 +58,20 @@ public class Store {
         //
         // where id is a unique string identifier, name is the product name,
         // price is a double value representing the price of the product
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+            String input;
+            while ((input = bufferedReader.readLine()) != null){
+
+                String[] strings = input.split("\\|");
+
+                inventory.add(new Product(strings[0], strings[1], Double.parseDouble(strings[2])));
+
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the file.");
+        }
     }
 
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
@@ -63,6 +80,10 @@ public class Store {
         // prompt the user to enter the ID of the product they want to add to
         // their cart. The method should
         // add the selected product to the cart ArrayList.
+
+        System.out.println("The list of all products: ");
+
+        
     }
 
     public static void displayCart(ArrayList<Product> cart, Scanner scanner, double totalAmount) {
