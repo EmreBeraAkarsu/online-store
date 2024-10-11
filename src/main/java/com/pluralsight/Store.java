@@ -62,7 +62,7 @@ public class Store {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String input;
-            while ((input = bufferedReader.readLine()) != null){
+            while ((input = bufferedReader.readLine()) != null) {
 
                 String[] strings = input.split("\\|");
 
@@ -83,7 +83,43 @@ public class Store {
 
         System.out.println("The list of all products: ");
 
-        
+        for (Product product : inventory) {
+            System.out.println(product.toString());
+        }
+
+        boolean display = true;
+        while (display) {
+
+            System.out.println("Search a product by id(1) \nAdd a product to your cart with id(2)\nGo Back to the home page(3)");
+            String input = scanner.nextLine();
+
+            switch (input) {
+                case "1":
+                    System.out.println("Enter the id to search for the product: ");
+                    String idSearch = scanner.nextLine();
+                    for (Product product : inventory) {
+                        if (product.getId().equalsIgnoreCase(idSearch)) {
+                            System.out.println(product.toString());
+                        }
+                    }
+                    break;
+
+                case "2":
+                    System.out.println("Enter the id of the product you want to add: ");
+                    String idAddProduct = scanner.nextLine();
+                    for (Product product : inventory) {
+                        if (product.getId().equalsIgnoreCase(idAddProduct)) {
+                            cart.add(product);
+
+                        }
+                    }
+                    break;
+
+                case "3":
+                    display = false;
+                    break;
+            }
+        }
     }
 
     public static void displayCart(ArrayList<Product> cart, Scanner scanner, double totalAmount) {
