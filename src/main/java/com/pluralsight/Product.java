@@ -4,11 +4,13 @@ public class Product {
     private String id;
     private String name;
     private double price;
+    private String department;
 
-    public Product(String id, String name, double price) {
+    public Product(String id, String name, double price, String department) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.department = department;
     }
 
     public String getId() {
@@ -35,12 +37,21 @@ public class Product {
         this.price = price;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", department=" + department +
                 '}';
     }
 }
