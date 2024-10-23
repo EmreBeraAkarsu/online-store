@@ -4,9 +4,9 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
-import static sun.security.util.Debug.args;
 
 public class Store {
 
@@ -163,10 +163,12 @@ public class Store {
         // variable accordingly.
 
 
-        System.out.println("Enter one of the following options:\nView the contents of the cart(1)\nRemove and item from the cart(2)\nCheckOut(3)\nGo back to the home screen(4)");
-        String input = scanner.nextLine();
+
 
         while (true) {
+            System.out.println("Enter one of the following options:\nView the contents of the cart(1)\nRemove and item from the cart(2)\nCheckOut(3)\nGo back to the home screen(4)");
+            String input = scanner.nextLine();
+
             switch (input) {
 
                 case "1":
@@ -182,6 +184,14 @@ public class Store {
                         if (product.getId().equalsIgnoreCase(idRemove)) {
                             cart.remove(product);
                         }
+                    }
+
+                    Iterator<Product> iterator = cart.iterator();
+
+                    // Iterate through the ArrayList
+                    while (iterator.hasNext()) {
+                        String element = iterator.next();
+                        System.out.println(element);
                     }
                     break;
 

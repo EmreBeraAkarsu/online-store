@@ -2,20 +2,26 @@
 
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+This is a project to simulate simple online store application. The user can view the inventory, search for items, add and remove items from their cart, and checkout to finalize the transaction.
 
-![Class Diagram](path/to/your/class_diagram.png)
 
 ## User Stories
 
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
-
+- As a user, I should be able to see what is available to me, so I can make my purchases accordingly
+- As a user, I should be able to filter the products by their id, so I can search and find specific items
+- As a user, I should be able to filter the products by their name, so I can search and find specific items
+- As a user, I should be able to add items to my cart, so I can buy additional items by placing them in the cart
+- As a user, I should be able to filter the products by their department, so I can search and find specific items
+- As a user, I should be able to filter the products by their price, so I can search and find specific items
+- As a user, I should be able to remove items from my cart, so I can remove the unwanted items and not purchase them
+- As a user, I should be able to view the contents of my cart, so I can know what I am purchasing
+- As a user, I should be able to check out what is in my cart, so I can conclude my purchasing
+    
 ## Setup
 
-Instructions on how to set up and run the project using IntelliJ IDEA.
+
 
 ### Prerequisites
 
@@ -34,37 +40,41 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
-- Java: Mention the version you are using.
-- Any additional libraries or frameworks used in the project.
+- Java: Coretto-17
+- 
+- Any additional libraries:
+- java.io.*
+- java.time.LocalDate 
+- java.time.LocalDateTime 
+- java.util.ArrayList 
+- java.util.Scanner
 
 ## Demo
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
 
-![Application Screenshot](path/to/your/screenshot.png)
 
 ## Future Work
 
 Outline potential future enhancements or functionalities you might consider adding:
 
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- Additional feature to be developed:   
+Add a GUI for user friendliness-
+Add new payment options-
+Have separate interfaces for the user and the employees-
+A login process
+
+- Improvement of current functionalities:
+Have more edge case handling - More security measures in the code
 
 ## Resources
 
-List resources such as tutorials, articles, or documentation that helped you during the project.
-
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+No resources used
 
 ## Team Members
 
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
+- **Emre Akarsu** - The only member
+
 
 ## Thanks
 
-Express gratitude towards those who provided help, guidance, or resources:
-
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- Thank you to Raymond for continuous support and guidance.
