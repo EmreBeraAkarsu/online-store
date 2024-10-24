@@ -196,20 +196,29 @@ public class Store {
 
                 case "1":
                     //Option to display the contents of the cart
+
+                    //Call the cartContentDisplay method to display the cart items
                     cartContentDisplay(cart);
+
+                    //Call and print out the cartContentCost method so the total price is displayed
                     System.out.println("Total price: " + cartContentCost(cart));
                     break;
 
                 case "2":
+                    //Option to remove a product from the cart
+
+                    //Ask the user to enter an id to remove
                     System.out.println("Enter the id of the product you want to remove:");
                     String idRemove = scanner.nextLine();
 
+                    //Use Iterator class to iterate through the cart ArrayList and remove the matched product
                     Iterator<Product> iterator = cart.iterator();
 
                     // Iterate through the ArrayList
                     while (iterator.hasNext()) {
                         Product element = iterator.next();
 
+                        //If there is a match between the product's id and the input id then remove form the List
                         if (element.getId().equalsIgnoreCase(idRemove)) {
                             iterator.remove();
                         }
@@ -217,16 +226,19 @@ public class Store {
                     break;
 
                 case "3":
+                    //Call checkOut() method to checkout
                     checkOut(cart, scanner);
                 case "4":
                     return;
                 default:
+                    //Default value for the invalid option selected
                     System.out.println("Invalid option!");
                     break;
             }
         }
     }
 
+    //Method for iterating through the cart Arraylist and display each object within
     public static void cartContentDisplay(ArrayList<Product> cart) {
         for (Product product : cart) {
             System.out.println(product);
@@ -234,6 +246,7 @@ public class Store {
     }
 
 
+    //Method to iterate through the cart List and adding the cost until all of the products in the cart List is exhausted.
     public static double cartContentCost(ArrayList<Product> cart) {
         double totalCost = 0;
 
@@ -241,16 +254,14 @@ public class Store {
             totalCost += product.getPrice();
         }
 
+        //The final summation is returned as totalCost
         return totalCost;
     }
 
-
+    //checkOut method to finalize the transaction
     public static void checkOut(ArrayList<Product> cart, Scanner scanner) {
-        // This method should calculate the total cost of all items in the cart,
-        // and display a summary of the purchase to the user. The method should
-        // prompt the user to confirm the purchase, and deduct the total cost
-        // from their account if they confirm.
 
+        //Arrange necessary variables and objects to be used in the receipt
         StringBuilder stringBuilder = new StringBuilder();
 
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -258,23 +269,34 @@ public class Store {
         String formattedDateTime = localDateTime.format(formatter);
 
 
+        //Display the items in the cart
         System.out.println("Contents of the cart: \n");
         cartContentDisplay(cart);
 
         System.out.println("The total cost: $" + cartContentCost(cart));
 
+        //Prompt the user for confirmation
         System.out.println("Do you want to confirm the pruchase? yes/no");
         String input = scanner.nextLine();
 
+        //If the user confirmed the purchase...
         if (input.equalsIgnoreCase("yes")) {
+
+            //Prompt the user for the amount they are paying
             System.out.println("How much are you paying?");
             double paid = scanner.nextDouble();
             scanner.nextLine();
 
+            //Display the cart contents
             cartContentDisplay(cart);
+
+            //Get the total cost of the cart
             double totalDue = cartContentCost(cart);
 
+            //Create a receipt if the amount paid is enough for the amount due
             if (totalDue <= paid) {
+
+                //Print out receipt information
                 System.out.println("Receipt: ");
                 System.out.println(localDateTime.toLocalDate());
                 System.out.println("Your change is $" + (paid - totalDue));
@@ -283,6 +305,7 @@ public class Store {
                 System.out.println("Amount Paid: " + paid);
 
 
+                //Use String builder to hold the receipt information
                 stringBuilder.append("Receipt: ");
                 stringBuilder.append("\n" + localDateTime);
                 stringBuilder.append("\nYour change is $" + (paid - totalDue));
@@ -290,9 +313,11 @@ public class Store {
                 stringBuilder.append("\nTotal: " + cartContentCost(cart));
                 stringBuilder.append("\nAmount Paid: " + paid);
 
+                //Clear the cart since the purchase is finalized
                 cart.clear();
 
 
+                //Use Buffered Writer to create a new file, write the receipt information within via the String Builder that holds the receipt information
                 try {
                     BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(formattedDateTime + ".txt"));
 
@@ -304,99 +329,122 @@ public class Store {
                 }
 
             } else {
+                //Print Out if the amount paid is not enough to cover the cost
                 System.out.println("Amount paid is not enough!");
             }
 
-        } else if (input.equalsIgnoreCase("no")) {
+        }
+        //If the user doesn't confirm the purchase, do nothing
+        else if (input.equalsIgnoreCase("no")) {
 
         } else {
+            //If user selects anything else other than yes and no it is an invalid option
             System.out.println("Invalid option");
         }
-
-
-
-
     }
 
 
+    //Method to get the items within the cart
     public static StringBuilder getContentsOfTheCart(ArrayList<Product> cart) {
 
         StringBuilder stringBuilder = new StringBuilder();
 
+        //Iterate through the cart List
         for (Product product : cart) {
+            //Append the item as a string into String Builder
             stringBuilder.append(product);
 
         }
+
+        //Return the String Builder that holds the strings of the items within the cart
         return stringBuilder;
     }
 
 
+    //Method to find a product by id
     public static Product findProductById(String id, ArrayList<Product> inventory) {
-        // This method should search the inventory ArrayList for a product with
-        // the specified ID, and return the corresponding com.pluralsight.Product object. If
-        // no product with the specified ID is found, the method should return
-        // null.
+
+        //Initialize the productFound as null so if not found null value stays
         Product productFound = null;
 
+        //iterate through the inventory list
         for (Product product : inventory) {
+            //If a product within the inventory list matches to the id provided, then assign it to productFound variable
             if (product.getId().equalsIgnoreCase(id)) {
                 productFound = product;
             }
         }
+        //Continue here if no product is found
         if (productFound == null) {
 
+            //Display a message stating no product matched
             System.out.println("Couldn't find the product");
         }
         return productFound;
     }
 
+    //Method to search a product by name
     public static Product searchProductByName(String name, ArrayList<Product> inventory) {
 
-
+        //Initialize the productFound as null so if not found null value stays
         Product productFound = null;
 
+        //iterate through the inventory list
         for (Product product : inventory) {
+            //If a product within the inventory list matches to the name provided, then assign it to productFound variable
             if (product.getName().equalsIgnoreCase(name)) {
                 productFound = product;
             }
         }
+        //Continue here if no product is found
         if (productFound == null) {
 
+            //Display a message stating no product matched
             System.out.println("Couldn't find the product");
         }
         return productFound;
     }
 
-
+    //Method to search a product by price
     public static Product searchProductByPrice(double price, ArrayList<Product> inventory) {
 
-
+        //Initialize the productFound as null so if not found null value stays
         Product productFound = null;
 
+        //iterate through the inventory list
         for (Product product : inventory) {
+            //If a product within the inventory list matches to the price provided, then assign it to productFound variable
             if (product.getPrice() == price) {
                 productFound = product;
             }
         }
+        //Continue here if no product is found
         if (productFound == null) {
 
+            //Display a message stating no product matched
             System.out.println("Couldn't find the product");
         }
         return productFound;
     }
 
+    //Method to search a product by price
     public static ArrayList<Product> searchProductByDepartment(String department, ArrayList<Product> inventory) {
 
-
+        //Create an ArrayList to hold the products that match. It is created because more than one item could have the same department
         ArrayList<Product> productsFound = new ArrayList<>();
 
+        //iterate through the inventory list
         for (Product product : inventory) {
+
+            //If a product within the inventory list matches to the department provided, then add it to the productsFound ArrayList
             if (product.getDepartment().equalsIgnoreCase(department)) {
                 productsFound.add(product);
             }
         }
+        //Continue here if no product is found
         if (productsFound.isEmpty()) {
 
+            //Display a message stating no product matched
             System.out.println("Couldn't find the product");
         }
         return productsFound;
