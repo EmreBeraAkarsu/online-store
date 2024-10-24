@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -52,47 +53,42 @@ public class Store {
     }
 
     public static void loadInventory(String fileName, ArrayList<Product> inventory) {
-        // This method should read a CSV file with product information and
-        // populate the inventory ArrayList with com.pluralsight.Product objects. Each line
-        // of the CSV file contains product information in the following format:
-        //
-        // id,name,price
-        //
-        // where id is a unique string identifier, name is the product name,
-        // price is a double value representing the price of the product
 
+//Read the .csv file
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String input;
+            //Continue reading each line
             while ((input = bufferedReader.readLine()) != null) {
 
+                //Split the line into separate section by the "|"
                 String[] strings = input.split("\\|");
 
+                //Use the split strings for creating a new Product object and add it to the inventory ArrayList
                 inventory.add(new Product(strings[0], strings[1], Double.parseDouble(strings[2]), strings[3]));
 
             }
         } catch (IOException e) {
+            //Display error message if there were any issues reading the file
             System.err.println("Error reading the file.");
         }
     }
 
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
-        // This method should display a list of products from the inventory,
-        // and prompt the user to add items to their cart. The method should
-        // prompt the user to enter the ID of the product they want to add to
-        // their cart. The method should
-        // add the selected product to the cart ArrayList.
 
+        //Display header
         System.out.println("The list of all products: ");
 
+        //Iterate through the inventory ArrayList and print out the product objects one by one
         for (Product product : inventory) {
             System.out.println(product);
         }
 
         boolean display = true;
+        //Menu for displaying the products
         while (display) {
 
-            System.out.println("Search a product(1)\nAdd a product to your cart with id(2)\nGo Back to the home page(3)");
+            System.out.println("\nSearch a product(1)\nAdd a product to your cart with id(2)\nGo Back to the home page(3)");
             String input = scanner.nextLine();
 
             switch (input) {
@@ -163,8 +159,6 @@ public class Store {
         // variable accordingly.
 
 
-
-
         while (true) {
             System.out.println("Enter one of the following options:\nView the contents of the cart(1)\nRemove and item from the cart(2)\nCheckOut(3)\nGo back to the home screen(4)");
             String input = scanner.nextLine();
@@ -180,18 +174,15 @@ public class Store {
                     System.out.println("Enter the id of the product you want to remove:");
                     String idRemove = scanner.nextLine();
 
-                    for (Product product : cart) {
-                        if (product.getId().equalsIgnoreCase(idRemove)) {
-                            cart.remove(product);
-                        }
-                    }
-
                     Iterator<Product> iterator = cart.iterator();
 
                     // Iterate through the ArrayList
                     while (iterator.hasNext()) {
-                        String element = iterator.next();
-                        System.out.println(element);
+                        Product element = iterator.next();
+
+                        if (element.getId().equalsIgnoreCase(idRemove)) {
+                            iterator.remove();
+                        }
                     }
                     break;
 
@@ -233,6 +224,8 @@ public class Store {
         StringBuilder stringBuilder = new StringBuilder();
 
         LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        String formattedDateTime = localDateTime.format(formatter);
 
 
         System.out.println("Contents of the cart: \n");
@@ -271,13 +264,14 @@ public class Store {
 
 
                 try {
-                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(localDateTime) + ".txt"));
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(formattedDateTime + ".txt"));
 
-                    bufferedWriter.write(String.valueOf(stringBuilder));
+                    bufferedWriter.write(stringBuilder.toString());
+
+                    bufferedWriter.close();
                 } catch (Exception e) {
                     System.err.println("Error writing to the file!");
                 }
-
 
             } else {
                 System.out.println("Amount paid is not enough!");
@@ -288,6 +282,8 @@ public class Store {
         } else {
             System.out.println("Invalid option");
         }
+
+
 
 
     }

@@ -51,7 +51,11 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Demo
 
-
+![add a product to your cart.PNG](imgs%2Fadd%20a%20product%20to%20your%20cart.PNG)
+![Check out the cart.PNG](imgs%2FCheck%20out%20the%20cart.PNG)
+![removing an item from the cart.PNG](imgs%2Fremoving%20an%20item%20from%20the%20cart.PNG)
+![search a product by department.PNG](imgs%2Fsearch%20a%20product%20by%20department.PNG)
+![Search a product by id.PNG](imgs%2FSearch%20a%20product%20by%20id.PNG)
 
 ## Future Work
 
