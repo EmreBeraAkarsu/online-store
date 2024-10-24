@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+//Product class to create objects to be used for the inventory and adding them to the cart
 public class Product {
     private String id;
     private String name;

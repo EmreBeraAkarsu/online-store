@@ -37,21 +37,26 @@ public class Store {
             // Call the appropriate method based on user choice
             switch (choice) {
                 case 1:
+                    //To display the inventory
                     displayProducts(inventory, cart, scanner);
                     break;
                 case 2:
+                    //To display the items in the cart
                     displayCart(cart, scanner, totalAmount);
                     break;
                 case 3:
+                    //To exit
                     System.out.println("Thank you for shopping with us!");
                     break;
                 default:
+                    //default is an invalid option selected
                     System.out.println("Invalid choice!");
                     break;
             }
         }
     }
 
+    //Load the .csv file contents into an Arraylist for the code to use
     public static void loadInventory(String fileName, ArrayList<Product> inventory) {
 
 //Read the .csv file
@@ -74,6 +79,7 @@ public class Store {
         }
     }
 
+    //Displays the inventory items
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
 
         //Display header
@@ -93,13 +99,20 @@ public class Store {
 
             switch (input) {
                 case "1":
+                    //To search a product with a specific value
                     searchProduct(scanner, inventory);
                     break;
 
                 case "2":
+                    //To add an item to the cart
+
+                    //Prompt and store the id of the product the user wants to add to the cart
                     System.out.println("Enter the id of the product you want to add: ");
                     String idAddProduct = scanner.nextLine();
+
+                    //Iterate through the inventory ArrayList
                     for (Product product : inventory) {
+                        //Add to the cart Arraylist if there is a match between the user's input id and an item from the inventory ArrayList
                         if (product.getId().equalsIgnoreCase(idAddProduct)) {
                             cart.add(product);
 
@@ -108,6 +121,7 @@ public class Store {
                     break;
 
                 case "3":
+                    //To return to the main menu
                     display = false;
                     break;
             }
@@ -115,57 +129,73 @@ public class Store {
     }
 
 
+    //Search a product for a specific item value
     public static void searchProduct(Scanner scanner, ArrayList<Product> inventory) {
 
+        //Get the option the user wants to search for
         System.out.println("Search by:\nId(1)\nName(2)\nPrice(3)\nDepartment(4)");
         String input = scanner.nextLine();
 
+        //Menu for searching for an item with the selected value option
         switch (input) {
 
             case "1":
+                //Search with the id
+
+                //Ask the user to provide the id to search
                 System.out.println("Enter the id to search for the product: ");
                 String idSearch = scanner.nextLine();
 
+                //Call the findProductById() method with the id as an argument to search a product and display the result
                 System.out.println(findProductById(idSearch, inventory));
                 break;
 
             case "2":
+                //Search with the name
+
+                //Ask the user to provide the name to search
                 System.out.println("Enter the name to search for the product: ");
                 String nameSearch = scanner.nextLine();
 
+                //Call the searchProductByName() method to search a product by the name and display the result
                 System.out.println(searchProductByName(nameSearch, inventory));
                 break;
 
             case "3":
+                //Search with the price
+
+                //Ask the user to provide the price to search
                 System.out.println("Enter the price to search for the product: ");
                 double priceSearch = scanner.nextDouble();
 
+                //Call the searchProductByPrice() method the search for a product with id and display the result
                 System.out.println(searchProductByPrice(priceSearch, inventory));
                 break;
 
             case "4":
+                //Search with the department
+
+                //Ask the user for the department to search
                 System.out.println("Enter the department to search for the product: ");
                 String department = scanner.nextLine();
 
+                //Call the searchProductByDepartment() method to search a product by the department and display the result
                 System.out.println(searchProductByDepartment(department, inventory));
         }
     }
 
     public static void displayCart(ArrayList<Product> cart, Scanner scanner, double totalAmount) {
-        // This method should display the items in the cart ArrayList, along
-        // with the total cost of all items in the cart. The method should
-        // prompt the user to remove items from their cart by entering the ID
-        // of the product they want to remove. The method should update the cart ArrayList and totalAmount
-        // variable accordingly.
 
-
+        //Menu for displaying the cart and other cart related actions
         while (true) {
+            //Ask the user to pick a cart related option and store the input
             System.out.println("Enter one of the following options:\nView the contents of the cart(1)\nRemove and item from the cart(2)\nCheckOut(3)\nGo back to the home screen(4)");
             String input = scanner.nextLine();
 
             switch (input) {
 
                 case "1":
+                    //Option to display the contents of the cart
                     cartContentDisplay(cart);
                     System.out.println("Total price: " + cartContentCost(cart));
                     break;
